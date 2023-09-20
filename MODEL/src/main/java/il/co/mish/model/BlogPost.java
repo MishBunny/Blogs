@@ -1,4 +1,4 @@
 package il.co.mish.model;
 
-public class BaseEntity {
+public class BlogPost {
 }

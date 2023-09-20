@@ -3,6 +3,12 @@
 
     <application>
         <activity
+            android:name=".BlogPost"
+            android:exported="false" />
+        <activity
+            android:name=".BaseList"
+            android:exported="false" />
+        <activity
             android:name=".BaseEntity"
             android:exported="false" />
     </application>
