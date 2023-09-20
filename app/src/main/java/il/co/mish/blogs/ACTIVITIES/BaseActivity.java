@@ -6,11 +6,17 @@ import android.os.Bundle;
 
 import il.co.mish.blogs.R;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity
+{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
     }
+
+    protected abstract void initializeViews();
+    protected abstract void setListeners();
+
 }
