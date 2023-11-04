@@ -10,6 +10,7 @@ public class BlogPost extends BaseEntity implements Serializable
     private String title;
     private String content;
     private Long date;
+    public BlogPost(){}
 
     public BlogPost(String author, String title, String content,Long date)
     {
@@ -20,11 +21,11 @@ public class BlogPost extends BaseEntity implements Serializable
     }
 
 
-    public String GetAuthor() { return author; }
-    public void SetAuthor(String author) { this.author=author; }
+    public String getAuthor() { return author; }
+    public void setAuthor(String author) { this.author=author; }
 
-    public String GetTitle() { return title; }
-    public void SetTitle(String title) { this.title=title; }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title=title; }
 
 
     public String getContent() { return content; }

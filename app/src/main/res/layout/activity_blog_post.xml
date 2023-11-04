@@ -69,12 +69,33 @@
         app:layout_constraintTop_toBottomOf="@+id/txtPost" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivClendar"
         android:layout_width="54dp"
         android:layout_height="48dp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="@+id/etDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/etDate"
         app:layout_constraintTop_toTopOf="@+id/etDate"
         app:srcCompat="@drawable/cal" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="50dp"
+        android:text="Cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etContent" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:text="Save"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnCancel" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
