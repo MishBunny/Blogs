@@ -9,14 +9,14 @@ import il.co.mish.model.BlogPost;
 public class BlogsViewModel extends ViewModel{
 
     private MutableLiveData<Boolean> successOperation;
-    public LiveData<Boolean> getSuccessOperation()
-    {
-        if (successOperation == null) {
-            successOperation = new MutableLiveData<>();
-            successOperation.setValue(false); // Default value
-        }
+    public BlogsViewModel() {
+        successOperation = new MutableLiveData<>();
+    }
+
+    public LiveData<Boolean> getSuccessOperation(){
         return successOperation;
     }
+
     public void add(BlogPost blogPost){
         successOperation.setValue(true);
     }

@@ -1,6 +1,7 @@
 package il.co.mish.blogs.ACTIVITIES;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -28,14 +29,16 @@ import java.util.Date;
 import il.co.mish.blogs.R;
 import il.co.mish.helper.DateUtil;
 import il.co.mish.helper.inputValidators.DateRule;
+import il.co.mish.helper.inputValidators.EntryValidation;
 import il.co.mish.helper.inputValidators.NameRule;
 import il.co.mish.helper.inputValidators.RuleOperation;
 import il.co.mish.helper.inputValidators.Rule;
 import il.co.mish.helper.inputValidators.TextRule;
 import il.co.mish.helper.inputValidators.Validator;
 import il.co.mish.model.BlogPost;
+import il.co.mish.viewmodel.BlogsViewModel;
 
-public class BlogPostActivity extends AppCompatActivity {
+public class BlogPostActivity extends BaseActivity implements EntryValidation {
 
     private ImageView ivCalendar;
     private EditText etDate;
@@ -44,14 +47,19 @@ public class BlogPostActivity extends AppCompatActivity {
     private EditText etContent;
     private Button btnSave;
     private Button btnCancel;
+
+    private BlogsViewModel blogsViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog_post);
 
+        blogsViewModel = new BlogsViewModel();
+
         initializeViews();
         setValidation();
         setListeners();
+        setObservers();
     }
 
 
@@ -147,35 +155,17 @@ public class BlogPostActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String dateString = etDate.getText().toString();
-                Long daysSinceEpoch = null;
-                DateTimeFormatter formatter = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                }
-                LocalDate localDate = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    localDate = LocalDate.parse(dateString, formatter);
-                }
-
-                // Calculate number of days elapsed since January 1, 1970
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    daysSinceEpoch = ChronoUnit.DAYS.between(LocalDate.of(1970, 1, 1), localDate);
-                }
-
-
                 if (validate()) {
                     BlogPost blogPost = new BlogPost();
+
                     blogPost.setAuthor(etAuthor.getText().toString());
                     blogPost.setTitle(etTitle.getText().toString());
                     blogPost.setContent(etContent.getText().toString());
-                    
-                    blogPost.setDate(daysSinceEpoch);
-                    //blogPost.setDate(Long.parseLong(etDate.getText().toString()));
+                    blogPost.setDate(DateUtil.stringDateToLong(etDate.getText().toString()));
 
+                    blogsViewModel.add(blogPost);
 
-                    // הצגת Toast
-                    showToast("ready");
+                    finish();
                 }
             }
         });
@@ -187,6 +177,20 @@ public class BlogPostActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void setObservers(){
+
+        blogsViewModel.getSuccessOperation()
+                .observe(this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(Boolean aBoolean) {
+                        if (aBoolean)
+                            showToast("Saved successfully !");
+                    }
+                });
+    }
+
+
     private void showToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
