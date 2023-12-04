@@ -1,4 +1,5 @@
 package il.co.mish.model;
 
-public class BlogPosts {
+public class BlogPosts extends BaseList<BlogPost, BlogPosts>{
+    
 }

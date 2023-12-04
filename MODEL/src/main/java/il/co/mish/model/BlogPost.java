@@ -10,6 +10,7 @@ public class BlogPost extends BaseEntity implements Serializable
     private String title;
     private String content;
     private Long date;
+    private String idf;
     public BlogPost(){}
 
     public BlogPost(String author, String title, String content,Long date)
@@ -35,6 +36,8 @@ public class BlogPost extends BaseEntity implements Serializable
     public Long getDate() { return date; }
 
     public void setDate(Long date) { this.date = date; }
+
+    public void setIdFs(String doc){}
 
     @Override
     public boolean equals(@Nullable Object obj) {
